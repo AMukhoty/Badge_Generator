@@ -15,10 +15,10 @@ import os
 
 ## Function to save the image in the same folder as the project folder
 def get_image_download_link(image_file,filename,text):
-    file_details = {"FileName":"Badge.png","FileType":"png"}
+    file_details = {"FileName":filename,"FileType":"png"}
     st.write(file_details)
     img =np.array(image_file)
-    cv2.imwrite("Badge.png",cv2.cvtColor(img, cv2.COLOR_RGB2BGR))        
+    cv2.imwrite(filename+".png",cv2.cvtColor(img, cv2.COLOR_RGB2BGR))        
     st.success("Saved File")
 
 # To change the cotents of the screen
@@ -63,7 +63,13 @@ if image is not None:
         with placeholder.container():
               st.title("Let's Generate Your Awesome Badge :")
               st.write("Don't forget to share this on your social media")
-              
+              st.subheader("Note :")
+              st.write("It Supports Image Only In .png Format")
+              # For selection of badge
+              add_selectbox2 = st.selectbox(
+               "Choose A Badge:",
+               ("The Ray of Code", "Ocean of Possibilities", "The Coding World","The Entry Gate","Start of Journey")
+            )
               # To resize the image and give it a circular appearence
               h,w = image.size
               lum_img = Image.new('L',[h,w] ,0) 
@@ -73,25 +79,101 @@ if image is not None:
               lum_img_arr = np.array(lum_img)
               final_img_arr = np.dstack((img_arr, lum_img_arr))
               result=Image.fromarray(final_img_arr)
-              template = cv2.imread('template.png')
-              template = Image.open("template.png")
-              resized_image = result.resize((190,180))
-              Image.Image.paste(template,resized_image, (158, 143))
-              draw = ImageDraw.Draw(template)
-              
               # To ask for the user name and add it to the badge
               message = st.text_input('Enter Your Name')
               if message:
                 name = message
                 color = 'rgb(255,255,255)' 
                 font = ImageFont.truetype('arial.ttf', size=30)
-                W, height = template.size
-                w, h = draw.textsize(message)
-                draw.text(((W/2)-w,400), message, fill=color, font=font)
-                st.image(template)
+                # If user chooses The Ray of Code Badge
+                if add_selectbox2=="The Ray of Code":
+                    template = cv2.imread('template.png')
+                    template = Image.open("template.png")
+                    resized_image = result.resize((190,180))
+                    Image.Image.paste(template,resized_image, (158, 143))
+                    draw = ImageDraw.Draw(template)
+                    
+                    W, height = template.size
+                    w, h = draw.textsize(message)
+                    draw.text(((W/2)-w,420), message, fill=color, font=font)
+                    st.image(template)
 
-                # To give the user an option to download the image
-                if(st.sidebar.button('Download')) :
-                  result = template
-                  img_file='Badge'
-                  st.markdown(get_image_download_link(result,img_file,'Download '+img_file), unsafe_allow_html=True)
+                    # To give the user an option to download the image
+                    if(st.sidebar.button('Download')) :
+                        result = template
+                        img_file='The Ray of Code Badge'
+                        st.markdown(get_image_download_link(result,img_file,'Download '+img_file), unsafe_allow_html=True)
+                # If user chooses Ocean of Possibilities Badge
+                if add_selectbox2=="Ocean of Possibilities":
+                    template = cv2.imread('template2.png')
+                    template = Image.open("template2.png")
+                    resized_image = result.resize((190,180))
+                    Image.Image.paste(template,resized_image, (158, 143))
+                    draw = ImageDraw.Draw(template)
+                    
+                    W, height = template.size
+                    w, h = draw.textsize(message)
+                    draw.text(((W/2)-w,430), message, fill=color, font=font)
+                    st.image(template)
+
+                    # To give the user an option to download the image
+                    if(st.sidebar.button('Download')) :
+                        result = template
+                        img_file='Ocean of Possibilities Badge'
+                        st.markdown(get_image_download_link(result,img_file,'Download '+img_file), unsafe_allow_html=True)
+                # If user chooses The Coding World Badge
+                if add_selectbox2=="The Coding World":
+                    template = cv2.imread('template3.png')
+                    template = Image.open("template3.png")
+                    resized_image = result.resize((190,180))
+                    Image.Image.paste(template,resized_image, (158, 159))
+                    draw = ImageDraw.Draw(template)
+                    
+                    W, height = template.size
+                    w, h = draw.textsize(message)
+                    color='rgb(0,0,0)'
+                    draw.text(((W/2)-w,430), message, fill=color, font=font)
+                    st.image(template)
+
+                    # To give the user an option to download the image
+                    if(st.sidebar.button('Download')) :
+                        result = template
+                        img_file='The Coding World Badge'
+                        st.markdown(get_image_download_link(result,img_file,'Download '+img_file), unsafe_allow_html=True)
+                # If user chooses The Entry Gate Badge
+                if add_selectbox2=="The Entry Gate":
+                    template = cv2.imread('template4.png')
+                    template = Image.open("template4.png")
+                    resized_image = result.resize((190,180))
+                    Image.Image.paste(template,resized_image, (158, 143))
+                    draw = ImageDraw.Draw(template)
+                    
+                    W, height = template.size
+                    w, h = draw.textsize(message)
+                    draw.text(((W/2)-w,443), message, fill=color, font=font)
+                    st.image(template)
+
+                    # To give the user an option to download the image
+                    if(st.sidebar.button('Download')) :
+                        result = template
+                        img_file='The Entry Gate Badge'
+                        st.markdown(get_image_download_link(result,img_file,'Download '+img_file), unsafe_allow_html=True)
+                # If user chooses Start of Journey Badge
+                if add_selectbox2=="Start of Journey":
+                    template = cv2.imread('template5.png')
+                    template = Image.open("template5.png")
+                    resized_image = result.resize((190,180))
+                    Image.Image.paste(template,resized_image, (158, 143))
+                    draw = ImageDraw.Draw(template)
+                    
+                    W, height = template.size
+                    w, h = draw.textsize(message)
+                    color = 'rgb(0,0,0)'
+                    draw.text(((W/2)-w,420), message, fill=color, font=font)
+                    st.image(template)
+
+                    # To give the user an option to download the image
+                    if(st.sidebar.button('Download')) :
+                        result = template
+                        img_file='Start of Journey Badge'
+                        st.markdown(get_image_download_link(result,img_file,'Download '+img_file), unsafe_allow_html=True)
